@@ -1,47 +1,31 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+    <main>
+        <!-- heading -->
+        <header>
+            <img src="./assets//pinia-logo.svg" alt="pinia logo">
+            <h1>Pinia Tasks</h1>
+        </header>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+        <!-- task list -->
+        <div class="task-list">
+            <div v-for="task in taskStore.tasks" :key="task.id">
+                <TaskDetails :task="task"/>
+            </div>
+        </div>
+    </main>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
+<script>
+import TaskDetails from '@/components/TaskDetails.vue'
+import { useTaskStore } from './stores/TasksStore'
+    export default {
+        components: { TaskDetails },
+        setup () {
+            const taskStore = useTaskStore()
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+            return { taskStore }
+        }
+    }
+</script>
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
